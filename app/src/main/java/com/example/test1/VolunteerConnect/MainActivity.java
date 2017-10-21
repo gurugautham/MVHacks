@@ -10,6 +10,7 @@ public class MainActivity extends AppCompatActivity {
     // Test commit
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("VolunteerConnect");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }

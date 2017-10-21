@@ -208,7 +208,7 @@ public class    UserLogin extends AppCompatActivity implements LoaderCallbacks<C
                                 //checking if success
                                 if(task.isSuccessful()){
                                     Toast.makeText(UserLogin.this,"Successfully Logged In",Toast.LENGTH_LONG).show();
-                                    Intent myIntent = new Intent(UserLogin.this, HomeActivity.class);
+                                    Intent myIntent = new Intent(UserLogin.this, EventMap.class);
                                     finish();
                                     UserLogin.this.startActivity(myIntent);
                                     //display some message here
