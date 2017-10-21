@@ -3,6 +3,7 @@ package com.example.test1.VolunteerConnect;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -28,6 +29,12 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +69,8 @@ public class UserSignUp extends AppCompatActivity implements LoaderCallbacks<Cur
     private View mProgressView;
     private View mLoginFormView;
 
+    private FirebaseAuth firebaseAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +101,8 @@ public class UserSignUp extends AppCompatActivity implements LoaderCallbacks<Cur
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        firebaseAuth = FirebaseAuth.getInstance();
     }
 
     private void populateAutoComplete() {
@@ -184,6 +195,22 @@ public class UserSignUp extends AppCompatActivity implements LoaderCallbacks<Cur
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
+            Task<AuthResult> authResultTask = firebaseAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            //checking if success
+                            if (task.isSuccessful()) {
+                                Toast.makeText(UserSignUp.this, "Registration Success", Toast.LENGTH_LONG).show();
+                                finish();
+                                startActivity(new Intent(getApplicationContext(), EventMap.class));
+                            } else {
+                                //display some message here
+                                Toast.makeText(UserSignUp.this, "Registration Error", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+
             showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);

@@ -1,6 +1,9 @@
 package com.example.test1.VolunteerConnect;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Created by saikumarmajeti on 10/21/17.
@@ -8,16 +11,29 @@ import java.util.ArrayList;
 
 public class Database {
     public ArrayList<Event> events;
-    public Event event;
 
     public void sortByDate(int day, int month, int year){
-        day = event.getDay();
-        month = event.getMonth();
-        year = event.getYear();
-        int i = 0;
-        while(i < event.getPeople().size()){
+        Collections.sort(events, new Comparator<Event>() {
+            @Override
+            public int compare(Event event, Event t1) {
+                if(event.getYear() <= t1.getYear())
+                    return -1;
+                else if(event.getMonth() <= t1.getMonth())
+                    return -1;
+                else if(event.getDay() <= t1.getDay())
+                    return -1;
+                else if(t1.getYear() <= event.getYear())
+                    return 1;
+                else if(t1.getMonth() <= event.getMonth())
+                    return 1;
+                else if(t1.getDay() <= event.getDay())
+                    return 1;
+                else
+                    return 0;
 
-        }
+            }
+        });
+
 
     }
 

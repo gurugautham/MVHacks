@@ -75,7 +75,7 @@ public class Event {
         this.year = year;
     }
 
-    public boolean isBefore(Event eventToCheck){
+    /*public boolean isBefore(Event eventToCheck){
         if(eventToCheck.getYear() <= this.getYear())
             return true;
         else if(eventToCheck.getMonth() <= this.getMonth())
@@ -84,7 +84,7 @@ public class Event {
             return true;
         else
             return false;
-    }
+    }*/
 }
 
 
