@@ -1,4 +1,4 @@
-package com.example.test1.myapplication;
+package com.example.test1.VolunteerConnect;
 
 /**
  * Created by saikumarmajeti on 10/21/17.

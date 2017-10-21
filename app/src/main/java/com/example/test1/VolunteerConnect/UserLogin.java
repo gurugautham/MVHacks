@@ -1,4 +1,4 @@
-package com.example.test1.myapplication;
+package com.example.test1.VolunteerConnect;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -28,6 +28,12 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +43,7 @@ import static android.Manifest.permission.READ_CONTACTS;
 /**
  * A login screen that offers login via email/password.
  */
-public class UserSignUp extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+public class UserLogin extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -62,10 +68,12 @@ public class UserSignUp extends AppCompatActivity implements LoaderCallbacks<Cur
     private View mProgressView;
     private View mLoginFormView;
 
+    private FirebaseAuth firebaseAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_sign_up);
+        setContentView(R.layout.activity_user_login);
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
@@ -92,6 +100,9 @@ public class UserSignUp extends AppCompatActivity implements LoaderCallbacks<Cur
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        //initializing firebase auth object
+        firebaseAuth = FirebaseAuth.getInstance();
     }
 
     private void populateAutoComplete() {
@@ -160,11 +171,13 @@ public class UserSignUp extends AppCompatActivity implements LoaderCallbacks<Cur
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
+        /*
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
         }
+        */
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
@@ -184,6 +197,25 @@ public class UserSignUp extends AppCompatActivity implements LoaderCallbacks<Cur
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
+
+            //Firebase Startup
+                firebaseAuth.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+
+                                //checking if success
+                                if(task.isSuccessful()){
+                                    Toast.makeText(UserLogin.this,"Successfully registered",Toast.LENGTH_LONG).show();
+                                    //display some message here
+                                }else{
+                                    Toast.makeText(UserLogin.this,"UnSuccessfully registered",Toast.LENGTH_LONG).show();
+                                    //display some message here
+                                }
+
+                            }
+                        });
+
             showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
@@ -273,7 +305,7 @@ public class UserSignUp extends AppCompatActivity implements LoaderCallbacks<Cur
     private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(UserSignUp.this,
+                new ArrayAdapter<>(UserLogin.this,
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
         mEmailView.setAdapter(adapter);

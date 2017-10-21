@@ -1,4 +1,4 @@
-package com.example.test1.myapplication;
+package com.example.test1.VolunteerConnect;
 
 import org.junit.Test;
 
