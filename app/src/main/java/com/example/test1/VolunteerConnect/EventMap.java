@@ -4,6 +4,7 @@ import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
 import android.location.Location;
 
@@ -47,28 +48,35 @@ public class EventMap extends FragmentActivity implements OnMapReadyCallback {
         mMap = googleMap;
 
         // Add a marker at present position
+        boolean mLocationPermissionGranted = false;
 
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
+
+        while (mLocationPermissionGranted == false) {
+            if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
+                    android.Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED) {
+                mLocationPermissionGranted = true;
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                        99);
+            }
         }
+
         mMap.setMyLocationEnabled(true);
+
+        /*
         LatLng currPosition = new LatLng(mMap.getMyLocation().getLatitude(), mMap.getMyLocation().getLongitude());
         Toast.makeText(EventMap.this, "Test", Toast.LENGTH_LONG).show();
         Toast.makeText(EventMap.this,mMap.getMyLocation().getLatitude() + " " + mMap.getMyLocation().getLongitude(),Toast.LENGTH_LONG).show();
 
         mMap.addMarker(new MarkerOptions().position(currPosition).title("Your Current Position"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(currPosition));
+        */
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng currLocation = new LatLng(37.38, -121.98);
+        mMap.addMarker(new MarkerOptions().position(currLocation).title("Marker in Sydney"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(currLocation));
     }
 }
