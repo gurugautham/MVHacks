@@ -20,8 +20,13 @@ public class MainActivity extends AppCompatActivity {
         MainActivity.this.startActivity(myIntent);
     }
 
+    protected void startEvent(View v) {
+        Intent myIntent = new Intent(MainActivity.this, EventActivity.class);
+        MainActivity.this.startActivity(myIntent);
+    }
+
     protected void signUp(View v) {
-        Intent myIntent = new Intent(MainActivity.this, UserLogin.class);
+        Intent myIntent = new Intent(MainActivity.this, UserSignUp.class);
         MainActivity.this.startActivity(myIntent);
     }
 }
