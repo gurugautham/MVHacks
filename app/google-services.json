@@ -36,6 +36,37 @@
           "status": 2
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:676770693512:android:cea221f31752bc31",
+        "android_client_info": {
+          "package_name": "com.example.test1.VolunteerConnect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "676770693512-di3fgchjeikaam4rrb5ojbdar5udm4kj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVwktNIo885CvjNorbMSbRrdKeZj7CVI0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
     }
   ],
   "configuration_version": "1"
