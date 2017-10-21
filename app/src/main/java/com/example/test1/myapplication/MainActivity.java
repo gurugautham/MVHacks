@@ -15,9 +15,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    protected void doStart(View v) {
-        Button b = (Button)(Button)findViewById(R.id.button);
-        b.setText("Let's Go!");
+    protected void logIn(View v) {
+        Intent myIntent = new Intent(MainActivity.this, UserLogin.class);
+        MainActivity.this.startActivity(myIntent);
+    }
+
+    protected void signUp(View v) {
         Intent myIntent = new Intent(MainActivity.this, UserLogin.class);
         MainActivity.this.startActivity(myIntent);
     }
