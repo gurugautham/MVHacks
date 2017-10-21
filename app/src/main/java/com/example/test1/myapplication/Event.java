@@ -10,18 +10,26 @@ public class Event {
     public Address address;
     public ArrayList<UserProfile> people;
     public int peopleRequired;
-    public int month, date, year;
+    public int month, day, year;
 
 
-    public Event(Address address, int peopleRequired, int month, int date, int year) {
+
+    public Event(Address address, int peopleRequired, int month, int day, int year) {
         this.address = address;
         this.people = new ArrayList<UserProfile>();
         this.peopleRequired = peopleRequired;
         this.month = month;
-        this.date = date;
+        this.day = day;
         this.year = year;
     }
 
+    public int getDay() {
+        return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
     public Address getAddress() {
         return address;
     }
@@ -46,8 +54,8 @@ public class Event {
         this.peopleRequired = peopleRequired;
     }
 
-    public void setTime(int month, int date, int year){
-        setDate(date);
+    public void setTime(int month, int day, int year){
+        setDay(day);
         setMonth(month);
         setYear(year);
     }
@@ -59,14 +67,6 @@ public class Event {
         this.month = month;
     }
 
-    public int getDate() {
-        return date;
-    }
-
-    public void setDate(int date) {
-        this.date = date;
-    }
-
     public int getYear() {
         return year;
     }
@@ -74,7 +74,19 @@ public class Event {
     public void setYear(int year) {
         this.year = year;
     }
+
+    public boolean isBefore(Event eventToCheck){
+        if(eventToCheck.getYear() <= this.getYear())
+            return true;
+        else if(eventToCheck.getMonth() <= this.getMonth())
+            return true;
+        else if(eventToCheck.getDay() <= this.getDay())
+            return true;
+        else
+            return false;
+    }
 }
+
 
 // setdate takes in 3 parameters(month, date, year)
 // setPeopleRequired

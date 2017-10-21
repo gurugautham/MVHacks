@@ -8,6 +8,18 @@ import java.util.ArrayList;
 
 public class Database {
     public ArrayList<Event> events;
+    public Event event;
+
+    public void sortByDate(int day, int month, int year){
+        day = event.getDay();
+        month = event.getMonth();
+        year = event.getYear();
+        int i = 0;
+        while(i < event.getPeople().size()){
+
+        }
+
+    }
 
     //sortByDate returns an arraylist of events sorted by date
     //sortByAddress take in user object(param) returns arraylist of events closest to user
