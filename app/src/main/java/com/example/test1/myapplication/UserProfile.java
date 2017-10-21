@@ -17,5 +17,5 @@ public class UserProfile {
         this.age = age;
     }
 
-    
+
 }
