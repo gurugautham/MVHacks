@@ -3,6 +3,7 @@ package com.example.test1.VolunteerConnect;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -164,8 +165,8 @@ public class UserLogin extends AppCompatActivity implements LoaderCallbacks<Curs
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        String email = mEmailView.getText().toString();
-        String password = mPasswordView.getText().toString();
+        String email = mEmailView.getText().toString().trim();
+        String password = mPasswordView.getText().toString().trim();
 
         boolean cancel = false;
         View focusView = null;
@@ -199,17 +200,20 @@ public class UserLogin extends AppCompatActivity implements LoaderCallbacks<Curs
             // perform the user login attempt.
 
             //Firebase Startup
-                firebaseAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
+            firebaseAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
 
                                 //checking if success
                                 if(task.isSuccessful()){
-                                    Toast.makeText(UserLogin.this,"Successfully registered",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(UserLogin.this,"Successfully Logged In",Toast.LENGTH_LONG).show();
+                                    Intent myIntent = new Intent(UserLogin.this, HomeActivity.class);
+                                    finish();
+                                    UserLogin.this.startActivity(myIntent);
                                     //display some message here
                                 }else{
-                                    Toast.makeText(UserLogin.this,"UnSuccessfully registered",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(UserLogin.this,"Incorrect Password, Please Try Again",Toast.LENGTH_LONG).show();
                                     //display some message here
                                 }
 
