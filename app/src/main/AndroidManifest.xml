@@ -32,11 +32,9 @@
         <activity
             android:name=".UserLogin"
             android:label="@string/title_activity_user_login" />
-        =======
         <activity
             android:name=".UserSignUp"
             android:label="@string/title_activity_user_sign_up" />
-        >>>>>>> 2fdbc4de2bb02f84f19c2a8bd33c8c6eb402fef1
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
