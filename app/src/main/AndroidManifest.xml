@@ -31,8 +31,8 @@
             android:label="@string/title_activity_user_sign_up" />
         >>>>>>> 2fdbc4de2bb02f84f19c2a8bd33c8c6eb402fef1
         <activity
-            android:name=".EventActivity"
-            android:label="@string/title_activity_event"
+            android:name=".HomeActivity"
+            android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
