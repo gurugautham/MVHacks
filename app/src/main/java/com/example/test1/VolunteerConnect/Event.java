@@ -16,6 +16,7 @@ public class Event {
 
     public Event(Address address, int peopleRequired, int month, int day, int year) {
         this.address = address;
+
         this.people = new ArrayList<UserProfile>();
         this.peopleRequired = peopleRequired;
         this.month = month;
