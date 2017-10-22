@@ -154,12 +154,16 @@ Event [] eventArray;
 
             mMap.setOnInfoWindowClickListener(this);
 
-
         }
 
     }
 
     public void onInfoWindowClick(Marker m) {
+        for (int c = 0; c < eventArray.length; c++) {
+            if (m.getTitle().equals(eventArray[c].getName())){
+                eventArray[c].setPeopleRequired(eventArray[c].getPeopleRequired()+1);
+            }
+        }
         Toast.makeText(EventMap.this,"You successfully joined this event",Toast.LENGTH_LONG).show();
     }
 }
