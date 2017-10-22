@@ -13,6 +13,16 @@ public class Event {
     public int month, day, year;
     public String name;
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String description;
+
 
     public String getName() {
         return name;
@@ -22,7 +32,7 @@ public class Event {
         this.name = name;
     }
 
-    public Event(String name, Address address, int peopleRequired, int month, int day, int year) {
+    public Event(String name, Address address, int peopleRequired, int month, int day, int year, String description) {
         this.address = address;
         this.name = name;
         this.people = new ArrayList<UserProfile>();
@@ -31,6 +41,7 @@ public class Event {
         this.day = day;
 
         this.year = year;
+        this.description = description;
     }
 
     public Event(){

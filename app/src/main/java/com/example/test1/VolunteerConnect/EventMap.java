@@ -1,10 +1,15 @@
 package com.example.test1.VolunteerConnect;
 
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Geocoder;
+import android.os.Message;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 import android.location.Location;
 
@@ -14,6 +19,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.firebase.database.DataSnapshot;
@@ -22,9 +28,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.logging.Handler;
 
-public class EventMap extends FragmentActivity implements OnMapReadyCallback {
+public class EventMap extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
 
     private GoogleMap mMap;
     private DatabaseReference databaseReference;
@@ -55,9 +65,9 @@ public class EventMap extends FragmentActivity implements OnMapReadyCallback {
                 //iterating through all the nodes
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     //getting artist
-                    Event event = postSnapshot.getValue(Event.class);
+                    //Event event = postSnapshot.getValue(Event.class);
                     //adding artist to the list
-                    getterDatabase.fillFromServer(event);
+                    //getterDatabase.fillFromServer(event);
                 }
 
                 //creating adapter
@@ -76,14 +86,14 @@ public class EventMap extends FragmentActivity implements OnMapReadyCallback {
     private void saveEventInformation(){
 
     }
-
+Event [] eventArray;
     public void addEvents(){
         int numEvents = 3;
 
-        Event [] eventArray = new Event[numEvents];
-        eventArray[0] = new Event("Tree Planting", new Address("95070", "Saratoga", "CA", "18060 King Court"), 10, 10, 25, 2017);
-        eventArray[1] = new Event("Volunteering", new Address("95054", "Santa Clara", "CA", "4900 Marie P DeBartolo Way"), 20, 8, 12, 2018);
-        eventArray[2] = new Event("Helping", new Address("95014", "Cupertino", "CA", "22500 Cristo Rey Dr"), 5, 4, 4, 2024);
+        eventArray = new Event[numEvents];
+        eventArray[0] = new Event("Tree Planting", new Address("95070", "Saratoga", "CA", "18060 King Court", 37.29, -122.03), 10, 10, 25, 2017, "Plant some trees!");
+        eventArray[1] = new Event("Volunteering", new Address("95054", "Santa Clara", "CA", "4900 Marie P DeBartolo Way", 37.40, -121.97), 20, 8, 12, 2018, "Yay, Volunteer!");
+        eventArray[2] = new Event("Helping", new Address("95014", "Cupertino", "CA", "22500 Cristo Rey Dr", 37.33, -122.09), 5, 4, 4, 2024, "Help us out!");
 
         for(int i = 0; i<numEvents; i++) {
             localDatabase.addEvent(databaseReference, eventArray[i]);
@@ -105,7 +115,7 @@ public class EventMap extends FragmentActivity implements OnMapReadyCallback {
 
         // Add a marker at present position
         boolean mLocationPermissionGranted = false;
-        Toast.makeText(EventMap.this, "Reached", Toast.LENGTH_LONG).show();
+        //Toast.makeText(EventMap.this, "Reached", Toast.LENGTH_LONG).show();
 
         while (mLocationPermissionGranted == false) {
             if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
@@ -132,9 +142,24 @@ public class EventMap extends FragmentActivity implements OnMapReadyCallback {
 
         // Add a marker at current location and move the camera
         LatLng currLocation = new LatLng(37.38, -121.98);
-        mMap.addMarker(new MarkerOptions().position(currLocation).title("Marker in Sydney"));
+        //mMap.addMarker(new MarkerOptions().position(currLocation).title("Current Position"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(currLocation));
 
+        // Drawing Markers
+        for (int c = 0; c < eventArray.length; c++) {
+            double latitude = eventArray[c].getAddress().latitude;
+            double longtitude = eventArray[c].getAddress().longtitude;
+            MarkerOptions ma = new MarkerOptions().position(new LatLng(latitude, longtitude)).title(eventArray[c].getName()).snippet(eventArray[c].getDescription() + " Address: " + eventArray[c].getAddress().streetAddress + ", " + eventArray[c].getAddress().city + ", " + eventArray[c].getAddress().state + ", " + eventArray[c].getAddress().zipCode);
+            mMap.addMarker(ma);
 
+            mMap.setOnInfoWindowClickListener(this);
+
+
+        }
+
+    }
+
+    public void onInfoWindowClick(Marker m) {
+        Toast.makeText(EventMap.this,"You successfully joined this event",Toast.LENGTH_LONG).show();
     }
 }

@@ -51,24 +51,5 @@
         app:layout_constraintVertical_bias="0.5"
         />
 
-    <Button
-        android:id="@+id/mapView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Map View"
-        android:onClick="map"
-        android:background="@android:color/holo_orange_light"
-        tools:layout_editor_absoluteX="58dp"
-        tools:layout_editor_absoluteY="445dp" />
-
-    <Button
-        android:id="@+id/listView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="List View"
-        android:onClick="list"
-        android:background="@android:color/holo_orange_light"
-        tools:layout_editor_absoluteX="236dp"
-        tools:layout_editor_absoluteY="445dp" />
 
 </android.support.constraint.ConstraintLayout>

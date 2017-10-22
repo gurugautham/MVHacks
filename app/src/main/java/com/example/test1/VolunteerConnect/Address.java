@@ -9,12 +9,16 @@ public class Address {
     String city;
     String state;
     String streetAddress;
+    double latitude;
+    double longtitude;
 
-    public Address(String a, String b, String c, String d){
+    public Address(String a, String b, String c, String d, double la, double lo){
         zipCode = a;
         city = b;
         state = c;
         streetAddress = d;
+        latitude = la;
+        longtitude = lo;
     }
 
     public void result(String duration){
