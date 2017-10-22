@@ -203,7 +203,7 @@ public class UserSignUp extends AppCompatActivity implements LoaderCallbacks<Cur
                             if (task.isSuccessful()) {
                                 Toast.makeText(UserSignUp.this, "Registration Success", Toast.LENGTH_LONG).show();
                                 finish();
-                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                startActivity(new Intent(getApplicationContext(), EventMap.class));
                             } else {
                                 //display some message here
                                 Toast.makeText(UserSignUp.this, "Registration Error", Toast.LENGTH_LONG).show();
