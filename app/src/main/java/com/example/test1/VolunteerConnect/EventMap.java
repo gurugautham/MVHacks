@@ -143,7 +143,7 @@ Event [] eventArray;
         // Add a marker at current location and move the camera
         LatLng currLocation = new LatLng(37.38, -121.98);
         //mMap.addMarker(new MarkerOptions().position(currLocation).title("Current Position"));
-        float zoomLevel = 16.0f; //This goes up to 21
+        float zoomLevel = 12.0f; //This goes up to 21
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currLocation, zoomLevel));
         //mMap.moveCamera(CameraUpdateFactory.newLatLng(currLocation));
 
