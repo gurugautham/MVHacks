@@ -11,17 +11,30 @@ public class Event {
     public ArrayList<UserProfile> people;
     public int peopleRequired;
     public int month, day, year;
+    public String name;
 
 
+    public String getName() {
+        return name;
+    }
 
-    public Event(Address address, int peopleRequired, int month, int day, int year) {
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Event(String name, Address address, int peopleRequired, int month, int day, int year) {
         this.address = address;
-
+        this.name = name;
         this.people = new ArrayList<UserProfile>();
         this.peopleRequired = peopleRequired;
         this.month = month;
         this.day = day;
+
         this.year = year;
+    }
+
+    public Event(){
+
     }
 
     public int getDay() {
